@@ -1,0 +1,50 @@
+How to write shell scripting
+
+Script1:
+
+Script to say hello
+
+step1:
+$gedit    hello.sh  (or) $vi   hello.sh
+
+#!/bin/bash
+
+#above one called as shebang
+
+# shebang tells, about the current script developed for which shell 
+
+#script to say Hello
+
+echo "hello world"
+
+echo "Hello Linux"
+
+
+Step 2:
+
+$chmod 766 hello.sh
+
+Step3:
+
+$./hello.sh       
+
+hello world
+
+Hello Linux
+
+in the above “./ “ refer to current working dir ( hello.sh is located at current working dir )
+
+the above script will be executed by current shell ( in Linux default shell is bash )
+
+
+$ /home/demo/test.sh   --> using absolute path , here also current shell executes the script
+
+ 
+
+How to check the current shell
+
+$echo $0
+
+
+Different shells for executing shell script.
+

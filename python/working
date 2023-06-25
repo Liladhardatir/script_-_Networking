@@ -1,0 +1,102 @@
+Working with java in Linux
+
+Step1:
+Update OS
+
+$sudo  apt  update
+
+
+Step2:
+
+Install  ssh
+
+$sudo apt install   ssh
+
+Step3
+
+Installing java in linux
+
+$ sudo apt  install default-jdk 
+
+open JDK 8
+$sudo apt   install openjdk-8-jdk
+
+open JDK 9
+
+$ sudo apt   install openjdk-9-jdk
+
+Default location of java installation
+
+
+
+
+Java path setting
+
+Go to home directory 
+
+$cd 
+
+$ls –a  🡪 to display all files including hidden files
+You  can see the  “.bashrc” file
+
+$gedit .bashrc
+
+  (or)
+
+$gedit  ~/.bashrc
+
+
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+
+export PATH=$PATH:$JAVA_HOME/bin
+
+Writing  Java program
+
+$gedit Test.java
+
+//import java.lang.*;  optional package
+
+public class Test
+{
+
+   public static void main(String []args)
+   {
+
+	System.out.println("Hello World");
+   }
+
+} 
+
+Compilation
+
+$javac Test.java
+
+Execution
+$java Test
+
+installing eclipse 
+
+$ sudo  apt  install  eclipse
+
+
+Working with mysql in linux
+
+Installing mysql in linux
+
+$sudo apt   install  mysql-server  mysql-client
+
+Connect to mysql server
+
+$mysql  –u  root   -p
+Password : ********
+
+Mysql>show databases
+
+Mysql>create database  mnrao
+
+Mysql>use mnrao
+
+Mysql>select database() from dual
+
+Mysql>show tables
+
