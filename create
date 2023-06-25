@@ -1,0 +1,35 @@
+Steps to create separate exe file for every program
+
+Step1:
+Write the program
+
+$gedit hello.c
+
+#include<stdio.h>
+void main()
+{
+  		printf("Hello World");
+}
+
+Step2:
+Compile the program and generate .obj file
+
+$cc –c hello.c
+
+Result file is “hello.o”
+
+Step3
+Create exe file
+
+$cc –o  <result_exe_name>  <obj_file1, obj_file2,obj_file3........>
+
+$cc –o hello  hello.o
+
+$ls
+hello.c  hello.o  hello
+
+Step4:
+Execution
+
+$./hello
+

@@ -1,0 +1,6 @@
+sudo  apt   install    ksh
+
+$ ksh   /home/demo/hello.sh
+Hello World
+Welcome to Linux
+

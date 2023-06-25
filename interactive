@@ -1,0 +1,39 @@
+Working with python in Linux:
+
+There are two modes of python
+1)	Interactive mode
+2)	Script mode
+
+Working in interactive mode
+
+$python3
+
+Python 3.5.2 (default, Nov 23 2017, 16:37:01) 
+[GCC 5.4.0 20160609] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>>
+
+>>> print("Hello World")
+Hello World
+
+>>> a=10
+>>> type(a)
+<class 'int'>
+>>> id(a)
+10919712
+
+>>> name="hello"
+>>> type(name)
+<class 'str'>
+>>> id(name)
+139854716854088
+
+>>> b=10.5
+>>> type(b)
+<class 'float'>
+>>> id(b)
+139854753708552
+>>> 
+
+>>> exit()  🡪 to quit from the Python command prompt ( interactive mode ) 
+

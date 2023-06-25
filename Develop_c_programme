@@ -1,0 +1,31 @@
+Steps to develop  C-Program in linux
+
+Step1 :
+Writing program
+
+$gedit test.c
+(or)
+$vi  test.c
+
+#include<stdio.h>
+void main()
+{
+  		printf("Hello World");
+}
+
+Step2:
+Compile and generate exe file
+
+$cc test.c
+It generates a.out file
+
+a.out 🡪 it is an exe file,which contains recently compiled c-program
+
+step3:
+execution:
+
+$./a.out
+
+O/P;
+	Hello World
+

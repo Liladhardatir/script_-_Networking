@@ -1,0 +1,31 @@
+Working in script mode:
+
+
+Developing Python Script in Linux :
+
+$gedit test.py
+
+#script to dispaly hello world
+print("Hello World")
+
+$ python3 test.py
+
+Hello World
+
+Program to find grater of two number:
+
+$gedit test.py
+
+
+#!/usr/bin/python3
+
+a=int(input("Enter 1st number "))
+
+b=int(input("Enter 2nd number "))
+
+if a>b :
+	print("greater number =",a)
+else:
+	print("greater number =",b)
+
+
