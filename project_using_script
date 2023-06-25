@@ -1,0 +1,507 @@
+
+CRUD  Script
+
+C --> Create
+R --> Read
+U --> Update
+D --> Delete
+
+
+
+
+
+
+
+
+
+
+
+
+
+project to perform following activities on user
+
+Fields :
+
+
+First Name 	:
+
+last name 	:
+
+User Id	: 
+
+Password 	:
+
+Retype password 	:
+
+Zip Code	:
+
+
+Operations 
+
+1. Adding new user
+
+2. Search for user
+
+3. Resetting password
+
+4. Delete user
+
+5. Display all users
+
+6. Count of users
+
+7. Exit
+
+
+
+
+
+#beg
+
+#beg
+
+add_user()
+{
+	echo "User details"
+	echo "First Name :"
+	read fname
+	echo "last name :"
+	read lname
+	echo "User Id: "
+	read  uid
+	echo "Password :"
+	read pwd
+	echo "retype password :"
+	read rtpwd
+
+	if [ $pwd != $rtpwd ]
+	then
+		echo "password not matching"
+		return
+	fi
+
+	echo "Zip Code"
+	read  zipcode
+
+	if [ ! -e /home/demo/user/user.dat ]
+	then
+		touch  /home/demo/user/user.dat
+	fi
+
+	
+
+	count=`grep "$uid" < /home/demo/user/user.dat  | wc -l` 
+
+	if [ $count -eq 1 ]
+	then
+		echo "userid $uid already exist"
+		return
+	fi
+	
+	echo "$uid:$pwd:$zipcode:$fname:$lname">>/home/demo/user/user.dat
+	echo "user added success fully"  
+}
+
+search_user()
+{
+	echo "Userid   : "
+	read uid
+	echo "Password : "
+	read pwd
+
+	count=`grep "$uid" < /home/demo/user/user.dat  |wc -l` 
+
+	if [ $count -eq 0 ]
+	then
+		echo "userid $uid does not exist"
+		return
+	fi
+		
+	count=`grep "$uid" < /home/demo/user/user.dat |grep "$pwd"|wc -l`
+
+	if [ $count -eq 0 ]
+	then
+		echo "Invalid password"
+		return
+	fi
+	
+	grep "$uid" < /home/demo/user/user.dat | cut -d":" -f1,3,4,5
+}
+
+resetting_Password()
+{
+  	echo "Userid   : "
+	read uid
+	echo "Password : "
+	read pwd
+
+	count=`grep "$uid" < /home/demo/user/user.dat  |wc -l` 
+
+	if [ $count -eq 0 ]
+	then
+		echo "userid $uid does not exist"
+		return
+	fi
+	
+	count=`grep "$uid" < /home/demo/user/user.dat |grep "$pwd"|wc -l`
+
+	if [ $count -eq 0 ]
+	then
+		echo "Invalid password"
+		return
+	fi
+
+	record=`grep  "$uid" < /home/demo/user/user.dat`
+
+	grep -v "$uid" < /home/demo/user/user.dat >temp.dat
+	
+	rm user.dat
+	
+	mv temp.dat user.dat
+
+	echo "Enter new password: "
+	read npwd
+
+	f1=`echo $record | cut -d":" -f1`
+	f2=`echo $record | cut -d":" -f2`
+	f3=`echo $record | cut -d":" -f3`
+	f4=`echo $record | cut -d":" -f4`
+	f5=`echo $record | cut -d":" -f5`
+
+	echo $f1:$npwd:$f3:$f4:$f5>>/home/demo/user/user.dat
+	echo "password updated successfully"
+}
+
+
+del_user()
+{
+	echo "Enter user id : "
+
+	read uid
+
+	echo "Enter password : "
+
+	read pwd
+
+	count=`grep "$uid" < /home/demo/user/user.dat  |wc -l` 
+
+	if [ $count -eq 0 ]
+	then
+		echo "userid $uid does not exist"
+		return
+	fi
+	
+	count=`grep "$uid" < /home/demo/user/user.dat |grep "$pwd"|wc -l`
+
+	if [ $count -eq 0 ]
+	then
+		echo "Invalid password"
+		return
+	fi
+
+	grep -v "$uid" < /home/demo/user/user.dat >/home/demo/user/temp.dat
+	
+	rm -rf /home/demo/user/user.dat
+
+	mv temp.dat user.dat
+	
+	echo "user deleted successfully"
+}
+
+show_all_users()
+{
+	echo "USERID ZIP FIRSTNAME LASTNAME "
+	cut -d":" -f1,3,4,5 < /home/demo/user/user.dat
+
+}
+
+users_count()
+{
+
+	count=`cat </home/demo/user/user.dat|wc -l`
+	echo "total no of users = $count"
+}
+
+#starting point of Script 
+
+while true
+do
+
+	echo "User Menu"
+
+	echo "1.Add user"
+
+	echo "2.Search user"
+
+	echo "3.Resetting Password" 
+
+	echo "4.Delete user"
+
+	echo "5.Show all users"
+
+	echo "6.Users count"
+
+	echo "7.Exit"
+
+	echo "Enter choice 1/2/3/4/5/6/7"
+
+
+	read choice 
+
+
+	case $choice in
+
+		1 )
+			add_user
+			;;
+		2 )
+			search_user
+			;;
+		3 )
+			resetting_Password
+			;;
+		4 )
+			del_user
+			;;
+		5 ) 	
+			show_all_users
+			;;
+		6 )
+			users_count
+			;;
+		7 )
+			echo "End of all Transactions" 
+			exit 0
+			;;
+		* )
+			echo "Wrong choice"
+			;;
+	esac
+
+done
+
+
+
+
+Linux Interview Questions
+
+
+1. Compare Linux & Windows ?
+Ans:
+Criteria 			Linux	Windows
+Type of OS	Open Source	Proprietary
+Customization	High level of customization	Cannot be changed
+Security	Excellent	Cannot be changed
+
+2) What is CLI?
+
+CLI is short for Command Line Interface. This interface allows user to type declarative commands to instruct the computer to perform operations. 
+
+3) What is GUI?
+
+Ans:
+GUI, or Graphical User Interface, makes use of images and icons that users click and manipulate as a way of communicating with the computer. Instead of having to remember and type commands, the use of graphical elements makes it easier to interact with the system, as well as adding more attraction through images, icons and colors.
+
+4) What is Linux?
+
+Ans :
+Linux is an operating system based on UNIX, and was first introduced by Linus Torvalds. It is based on the Unix Kernel, and can run on different hardware platforms manufactured by Intel, MIPS, HP, IBM, SPARC and Motorola. Another popular element in Linux is its mascot, a penguin figure named Tux.
+
+5) What is the difference between UNIX and LINUX?
+
+Ans:
+Unix originally began as a propriety operating system from Bell Laboratories, which later on spawned into different commercial versions. On the other hand, Linux is free, open source and intended as a non-propriety operating system for the masses.
+
+6) What are the basic components of Linux?
+
+Ans:
+Just like any other typical operating system, Linux has all of these components: kernel, shells and GUIs, system utilities, and application program.
+
+7) What is the basic difference between BASH and DOS?
+
+Ans:
+The key differences between the BASH and DOS console lies in 3 areas:
+
+– BASH commands are case sensitive while DOS commands are not;
+
+– under BASH, / character is a directory separator and \ acts as an escape character. Under DOS, / serves as a command argument delimiter and \ is the directory separator
+
+– DOS follows a convention in naming files, which is 8 character file name followed by a dot and 3 character for the extension. BASH follows no such convention.
+
+8) What is Linux Kernel?
+
+Ans:
+The Linux Kernel is a low-level systems software whose main role is to manage hardware resources for the user. It is also used to provide an interface between appliation software and hardware.
+
+9) What is BASH?
+
+Ans:
+BASH is short for Bourne Again SHell. It was written by Steve Bourne as a replacement to the original Bourne Shell (represented by /bin/sh). It combines all the features from the original version of Bourne Shell, plus additional functions to make it easier and more convenient to use. It has since been adapted as the default shell for most systems running Linux.
+
+
+10) Describe the root account.
+
+Ans:
+The root account is like a systems administrator account, and allows you full control of the system. Here you can create and maintain user accounts, assigning different permissions for each account. It is the default account every time you install Linux.
+
+11) How do you open a command prompt when issuing a command?
+
+Ans:
+To open the default shell (which is where the command prompt can be found), press Ctrl-Alt-F1. This will provide a command line interface (CLI) from which you can run commands as needed.
+
+
+12) How do you open a command prompt when issuing a command?
+
+Ans :
+To open the default shell (which is where the command prompt can be found), press Ctrl-Shift-N. This will provide a command line interface (CLI) from which you can run commands as needed.
+
+
+13) What are symbolic links?
+
+Ans :
+Symbolic links act similarly to shortcuts in Windows. Such links point to programs, files or directories. It also allows you instant access to it without having to go directly to the entire pathname.
+
+
+14) Does the Ctrl+Alt+Del key combination work on Linux?
+
+Ans : 
+Yes, it does. Just like Windows, you can use this key combination to perform a system restart.
+
+
+15) How do you change permissions under Linux?
+
+Ans:
+Chmod is a command to change permissions of file or directory.
+
+16) What are hard links?
+
+Ans:
+Hard links point directly to the physical file on disk, and not on the path name. This means that if you rename or move the original file, the link will not break, since the link is for the file itself, not the path where the file is located.
+
+15) What is the maximum length for a filename under Linux?
+
+Ans:
+Any filename can have a maximum of 255 characters. This limit does not include the path name, so therefore the entire pathname and filename could well exceed 255 characters.
+
+16)What are filenames that are preceded by a dot?
+
+Ans:
+In general, filenames that are preceded by a dot are hidden files. These files can be configuration files that hold important data or setup info. Setting these files as hidden makes it less likely to be accidentally deleted.
+
+17) How do you check current workng directory?
+
+Ans:
+The pwd command is short for print working directory command and is used to display the current location in the directory tree.
+
+$ pwd
+
+18) What are the kinds of permissions under Linux?
+
+Ans:
+There are 3 kinds of permissions under Linux:
+– Read: users may read the files or list the directory
+– Write: users may write to the file of new files to the directory
+– Execute: users may run the file or lookup a specific file within a directory
+
+
+19) What are environmental variables?
+
+Ans:
+Environmental variables are global settings that control the shell’s function as well as that of other Linux programs. Another common term for environmental variables is global shell variables.
+
+20) What are the different modes when using vi editor?
+
+Ans:
+There are 3 modes under vi:
+– Command mode – this is the mode where you start in
+– Edit mode – this is the mode that allows you to do text editing
+– Ex mode – this is the mode wherein you interact with vi with instructions to process a file
+
+21) What is redirection?
+
+Ans:
+Redirection is the process of directing data from one output to another. It can also be used to direct an output as an input to another process.
+
+22) What is grep command?
+
+grep a search command that makes use of pattern-based searching. It makes use of options and parameters that is specified along the command line and applies this pattern into searching the required file output.
+
+23) How do you terminate an ongoing process?
+
+Every process in the system is identified by a unique process id or pid. Use the kill command followed by the pid in order to terminate that process. To terminate all process at once, 
+
+use 
+$kill  -9 pid.
+
+ 24)Write a command that will display all .txt files, including its individual permission.
+
+$ ls -a -l *.txt
+
+25) What is the command to calculate the size of a folder?
+
+To calculate the size of a folder use the command 
+$du –sh <folder_name>.
+
+
+26) How can you find status of a process?
+
+Use the command
+
+$ ps - ux
+
+
+27) How can you check the memory status ?
+
+You can use the command
+
+$free -m  to display output in MB
+
+$free -g  to display output in GB
+
+28) How can you append one file to another in  Linux?
+
+Ans:
+To append one file to another in Linux you can use command 
+$cat file1 >> file2. 
+The operator >> appends the output of the named file or creates the file if it is not created.  
+
+29)Explain how you can find a file  using Terminal?
+
+Ans:
+To find a file  you have to use command, 
+$find . –name “process.txt”  -->  It will look for the current directory for a file called process.txt
+
+30) Explain how you can create a folder using Terminal?
+
+To create a folder, you have to use command mkdir.  
+It will be something like these :  
+~$ mkdir mnrao
+
+31) Which account is created on Linux installation?
+- With the installation of Linux, a super user account is created called as ‘root'
+
+32) What is an INODE?
+
+Ans:
+- It is a structure which has the description of all the files and pointers to the data blocks of files stored in it.
+- The information contained is file-size, access and modification time, permission and so on.
+
+33) What are the fields in the/etc/passwd file?
+
+Ans:
+The main fields of /etc/passwd file are:
+
+1. Username: It is used when user logs in. It should be between 1 and 32 characters in length.
+
+2. Password: An x character indicates that encrypted password is stored in /etc/shadow file.
+
+3. User ID (UID): Each user must be assigned a user ID (UID). UID 0 (zero) is reserved for root and UIDs 1-99 are reserved for other predefined accounts. Further UID 100-999 are reserved by system for administrative and system accounts/groups.
+
+4. Group ID (GID): The primary group ID (stored in /etc/group file)
+
+5. User ID Info: The comment field. It allow you to add extra information about the users such as user's full name, phone number etc. This field use by finger command.
+
+6. Home directory: The absolute path to the directory the user will be in when they log in. If this directory does not exists then users directory becomes /
+
+7. Command/shell: The absolute path of a command or shell (/bin/bash). Typically, this is a shell.
+
